@@ -8,8 +8,8 @@
 
 
 const request = require('supertest');
-const app = require('../app');
-const { sequelize } = require('../models');
+const app = require('../api/api');
+const { sequelize } = require('../api/models/Account');
 
 beforeAll(async () => {
   await sequelize.sync();

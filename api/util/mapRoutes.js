@@ -1,0 +1,87 @@
+// import entries from 'object.entries';
+const entries = require('object.entries');
+const express = require('express');
+const  path = require('path');
+
+const  splitByLastDot = require('./splitByLastDot');
+const  isConstructor = require('./isConstrutor');
+
+
+const cwd = process.cwd();
+
+const mapRoutes = (routes, pathToController, middlewareGenerals = []) => {
+  const router = express.Router();
+  let requestMethodPath;
+  let requestMethod;
+
+  let controllerMethod;
+  let controller;
+  let contr;
+
+  let handler;
+
+  let myPath;
+  const myPathToController = path.join(cwd, pathToController);
+
+  const routesArr = entries(routes);
+
+  routesArr.forEach((value) => {
+    let middlewares;
+    // to let use an array or only one function as general middlewares
+    if (Array.isArray(middlewareGenerals)) {
+      middlewares = [...middlewareGenerals];
+    } else if (typeof middlewareGenerals === 'function') {
+      middlewares = [middlewareGenerals];
+    } else {
+      middlewares = [];
+    }
+    requestMethodPath = value[0].replace(/\s\s+/g, ' ');
+    requestMethod = requestMethodPath.split(' ')[0].toLocaleLowerCase();
+    myPath = requestMethodPath.split(' ')[1];
+
+    if (typeof (value[1]) ==="string") {
+      controller = splitByLastDot(value[1])[0];
+      controllerMethod = splitByLastDot(value[1])[1];
+    } else {
+      // contains middlewares and other configuration
+      const props = value[1];
+
+      // Extract controller paths
+      if (props.path !== undefined) {
+        controller = splitByLastDot(props.path)[0];
+        controllerMethod = splitByLastDot(props.path)[1];
+      }
+
+      // Extract middlewares.
+      if (
+        props.middlewares !== undefined &&
+        Array.isArray(props.middlewares)
+      ) {
+        middlewares.push(...props.middlewares);
+      }
+    }
+    middlewares = middlewares.filter(el => el != null);
+
+    try {
+
+      handler = require(`${myPathToController}${controller}`);
+      const isConstructable = isConstructor(handler);
+
+      if (isConstructable) {
+        contr = new handler();
+      } else {
+        contr = handler();
+      }
+    } catch (err) {
+    //   require('@babel/register');
+      handler = require(`${myPathToController}${controller}`).default;
+      contr = new handler();
+    }
+
+    router.route(myPath)[requestMethod](middlewares, contr[controllerMethod]);
+  });
+
+  return router;
+};
+
+module.exports =  mapRoutes;

@@ -1,0 +1,35 @@
+{
+  "name": "microservice",
+  "version": "1.0.0",
+  "description": "npm install kafka-node express body-parser",
+  "main": "jest.config.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development node ./api/api.js",
+    "dev": "cross-env NODE_ENV=local nodemon ./api/api.js",
+    "nodemon": "nodemon --exec npm run dev",
+    "production": "cross-env NODE_ENV=production node ./api/api.js",
+    "test-ci": "jest --coverage --forceExit",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "busboy": "^1.6.0",
+    "core-js": "^3.30.1",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "express": "^4.18.2",
+    "fs-extra": "^11.1.1",
+    "helmet": "^6.1.5",
+    "http": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.0",
+    "kafkajs": "^2.2.4",
+    "mysql2": "^3.2.3",
+    "nodemon": "^2.0.22",
+    "object.entries": "^1.1.6",
+    "path": "^0.12.7",
+    "sequelize": "^6.31.0"
+  }
+}
