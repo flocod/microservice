@@ -38,14 +38,14 @@ switch (process.env.NODE_ENV) {
       }
     );
     break;
-  case "testing":
+  case "test":
     database = new Sequelize(
-      connection.testing.database,
-      connection.testing.username,
-      connection.testing.password,
+      connection.test.database,
+      connection.test.username,
+      connection.test.password,
       {
-        host: connection.testing.host,
-        dialect: connection.testing.dialect,
+        host: connection.test.host,
+        dialect: connection.test.dialect,
         pool: {
           max: 5,
           min: 0,

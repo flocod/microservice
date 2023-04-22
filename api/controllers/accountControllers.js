@@ -197,9 +197,12 @@ const accountControllers = () => {
   };
 
   const deleteAccount = async (req, res) => {
-    const body = await collectReq(req);
+
+
+    let body = req.query;
 
     console.log("body", body);
+
 
     isEmptyField(body);
 

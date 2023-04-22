@@ -17,9 +17,9 @@ const development = {
   database: "banque_dev",
 };
 
-const testing = {
+const test = {
   ...commonConfig,
-  database: "banque_test",
+  database: "banque",
 };
 
 const production = {
@@ -29,7 +29,7 @@ const production = {
 
 module.exports = {
   development,
-  testing,
+  test,
   production,
   local,
 };

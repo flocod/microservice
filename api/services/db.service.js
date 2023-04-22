@@ -86,9 +86,14 @@ const dbService = (environment, migrate) => {
   const startTest = async () => {
     try {
       await authenticateDB();
-      await startMigrateFalse();
+
+      if (migrate) {
+        return startMigrateTrue();
+      }
+
+      return startMigrateFalse();
     } catch (err) {
-      errorDBStart(err);
+      return errorDBStart(err);
     }
   };
 
@@ -112,7 +117,7 @@ const dbService = (environment, migrate) => {
       case "staging":
         await startStage();
         break;
-      case "testing":
+      case "test":
         await startTest();
         break;
       case "production":
