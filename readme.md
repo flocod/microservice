@@ -1,5 +1,3 @@
-npm install kafka-node express body-parser
-
 <div align="center">
   <br>
   <h1>Node.js Kafka comptes bancaires</h1>
@@ -8,13 +6,17 @@ npm install kafka-node express body-parser
 </div>
 
 # Features
- -Interagir avec Kafka via Node.js
- -Produire/consommer des événements vers/depuis des sujets
- -Utiliser Kafka comme file d'attente et comme système de publication/abonnement
+-Interagir avec Kafka via Node.js
+-Produire/consommer des événements vers/depuis des sujets
+-Utiliser Kafka comme file d'attente et comme système de publication/abonnement
+
+
 - GET /accounts : récupère la liste de tous les comptes bancaires
-- GET /accounts/:id : récupère le compte bancaire correspondant à l'identifiant id
-- POST /accounts : crée un nouveau compte bancaire
-- DELETE /accounts/:id : supprime le compte bancaire correspondant à l'identifiant id
+- GET /accounts/: récupère le compte bancaire correspondant à l'identifiant id
+- GET /filter-account/: Filtrer les comptes
+- GET /update-account/: Mettre à jour un compte bancaire
+- POST /account/ : crée un nouveau compte bancaire
+- DELETE /delete-account/ : supprime le compte bancaire correspondant à l'identifiant id
 
 
 # Tech Stack
@@ -32,18 +34,9 @@ npm install kafka-node express body-parser
 
 **Run**
 
-- `npm start`
+- `npm  run  dev`
+- `npm  test`
 
 **Monitoring**
 
-- http://localhost:8080 (Console)
-
-**Notes**
-
-# Codebase
-
-- [`example.ts`](example.ts) (Minimal example of using Kafka with Node.js)
-- [`cli.ts`](cli.ts) (CLI application to read wallet data in realtime)
-- [`server.ts`](server.ts) (WebSocket server that communicates with CLI and with Kafka)
-- [`balance.ts`](balance.ts) (Service, that crawls wallet balance on demand)
-- [`price.ts`](price.ts) (Service, that writes realtime price events to Kafka)
+- http://localhost:3007 (Console)
